@@ -23,8 +23,6 @@
 	<input type="text" name="amtcompleted"></br></br>
 	Event Description:</br>
 	<input type="text" name="descr"></br></br>
-	Organizer:</br>
-	<input type="text" name="organizer"></br></br>
 	<input type="submit" value="Submit">
 </form>
 
