@@ -41,7 +41,7 @@ body  {
                 <h2 style="text-align:center" >TechEVENT</h2>
 <form action="submit.php" method="post" >
 	<pre>
-	<b class="a">Event ID:                          Event Name:</br>
+	<b>Event ID:                          Event Name:</br>
 	<input type="text" name="eid" class="form-control1" >               <input type="text" name="ename" class="form-control1" ></br></br>
 	Event Date:                        Event Time:</br>
 	<input type="text" name="edate" class="form-control1" >               <input type="text" name="etime" class="form-control1" ></br></br>
