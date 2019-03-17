@@ -70,7 +70,7 @@ if($result-> num_rows > 0){
 		  aria-valuemin="0" aria-valuemax="100" style="width:70%">
 			<span class="sr-only">70% Complete</span>
 		  </div>
-		</div>
+		</div><button onclick="sponsornext.html" value="Sponsor" style="margin-left:5px;margin-bottom:15px;color:white;background-color:gray;">Sponsor</button>
         <div class="panel-footer">Total Amount:</div>
       </div>
     </div>';}
