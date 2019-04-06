@@ -8,7 +8,7 @@
   
   if (isset($_GET['logout'])) {
   	session_destroy();
-  	//unset($_SESSION['username']);
+  	unset($_SESSION['username']);
   	header("location:login.php");
   }
 ?>
@@ -49,11 +49,14 @@
   
   <?php
 $conn = mysqli_connect("localhost","root","","techevent");
-$username = mysqli_real_escape_string($conn, $_POST['username']);
+//if (isset($_POST['login_user'])) {
+//$username = mysqli_real_escape_string($conn, $_POST['username']);
+//$_SESSION['username']=$username;}
+
 if($conn-> connect_error){
   die("Connection failed:" . $conn -> connect_error); 
 }
-$sql = "SELECT events.eid,events.ename,events.username FROM events INNER JOIN registration on events.username=registration.username";
+$sql = "SELECT events.eid,events.ename,events.username FROM events INNER JOIN registration on events.username=registration.username where events.username= '{$_SESSION['username']}' ";
 
 $result = $conn-> query($sql);
 if($result-> num_rows > 0){
