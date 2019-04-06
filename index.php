@@ -1,59 +1,83 @@
+<?php 
+  session_start(); 
+
+  if (!isset($_SESSION['username'])) {
+  	$_SESSION['msg'] = "You must log in first";
+  	header('location: login.php');
+  }
+  
+  if (isset($_GET['logout'])) {
+  	session_destroy();
+  	//unset($_SESSION['username']);
+  	header("location:login.php");
+  }
+?>
 <!DOCTYPE html>
 <html>
-<style>
-body  {
-	background-position:center;
-	background-size:595px 540px;
-    background-image :url(blue.jpg);
-    background-repeat:no-repeat;
+<head>
+	<title>Home</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
+</head>
+<body>
+
+
+ 
+<div class="content">
+  	<!-- notification message -->
+  	<?php if (isset($_SESSION['success'])) : ?>
+      <div class="error success" >
+      	<h3>
+          <?php 
+          	echo $_SESSION['success']; 
+          	unset($_SESSION['success']);
+          ?>
+      	</h3>
+      </div>
+  	<?php endif ?>
+    
+      <?php  if (isset($_SESSION['username'])) : ?>
+            <p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>
+            <p> Upcoming Events!</p>    
+  
+  <?php
+$conn = mysqli_connect("localhost","root","","techevent");
+$username = mysqli_real_escape_string($conn, $_POST['username']);
+if($conn-> connect_error){
+  die("Connection failed:" . $conn -> connect_error); 
 }
-.form-div{
-	margin:auto;
-	border:3px solid blue;
-	width:590px;
+$sql = "SELECT events.eid,events.ename,events.username FROM events INNER JOIN registration on events.username=registration.username";
+
+$result = $conn-> query($sql);
+if($result-> num_rows > 0){
+  while($row = $result-> fetch_assoc()){
+  echo '<div class="container">    
+  <div class="row">
+  <div class="col-sm-4"> 
+      <div class="panel panel-primary">
+        <div class="panel-heading">Event </div>
+        <div class="panel-body"><img src="images.jpg" class="img-responsive" style="width:50%" alt="Image"></div>
+        <p style="margin-left:5px">Event ID :'. $row["eid"] ."</br>
+        <p style='margin-left:5px'>Event name: ". $row["ename"].'</br>
+      </div>
+      </div>
+      </div>
+    </div>';}
 }
-.btnSubmit
-{
-    border:none;
-    border-radius:1.5rem;
-    padding:1%;
-    width:20%;
-    cursor:pointer;
-    background:#0062cc;
-    color:#fff;
-}
-.form-control {
-	width:400px;
-	border:3px solid #ced4da;
-	border-radius:1.5rem;
-	
-}
-.form-control1{
-	border:3px solid #ced4da;
-	border-radius:1.5rem;
-}
-</style>
-<body class="container">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<img src="img/blue.jpg" >
-            <div class="form-div">
-                <h2 style="text-align:center" >TechEVENT</h2>
-<form action="submit.php" method="post" >
-	<pre>
-	<b>Event ID:                          Event Name:</br>
-	<input type="text" name="eid" class="form-control1" >               <input type="text" name="ename" class="form-control1" ></br></br>
-	Event Date:                        Event Time:</br>
-	<input type="text" name="edate" class="form-control1" >               <input type="text" name="etime" class="form-control1" ></br></br>
-	Number of Speakers:                Maximum No. of Participants:</br>
-	<input type="text" name="numspeakers" class="form-control1" >               <input type="text" name="maxparticipants" class="form-control1" ></br></br>
-	sponsor Amount:                    Amount Completed:</br>
-	<input type="text" name="sponsoramt" class="form-control1"  >               <input type="text" name="amtcompleted" class="form-control1" ></br></br>
-	Event Description:</br>
-	<input type="text" name="descr" class="form-control" ></br></br>
-	<input type="submit" value="Submit"  class="btnSubmit" >
-</pre>
+?>
+    <!-- logged in user information -->
+    	<p> <a href="index.php?logout='1'" class="btn btn-danger">logout</a> </p>
+    <?php endif ?>
+ 	
 </div>
-</form>
+
+		
 </body>
 </html>
