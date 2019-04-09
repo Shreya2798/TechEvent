@@ -3,7 +3,7 @@ session_start();
 if (isset($_POST['submit']) ){
     
 $conn=mysqli_connect('localhost','root','');
-mysqli_select_db($conn,'authentication');
+mysqli_select_db($conn,'db1');
     
 $username = $_POST['username'];
 $pass = $_POST['pass'];
@@ -13,8 +13,6 @@ $itype = $_POST['itype'];
 $desc = mysqli_real_escape_string($conn,$_POST['desc']);
 $message="";
 $reg="";
-
-
 $s="select * from users where username='$username'";
 $result=mysqli_query($conn,$s);
 $num=mysqli_num_rows($result);
@@ -68,28 +66,23 @@ else
     font-size: 17px;
 	margin-right:30px;
 }
-
 #msg.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
-
 @-webkit-keyframes fadein {
     from {top: 0; opacity: 0;} 
     to {top: 30px; opacity: 1;}
 }
-
 @keyframes fadein {
     from {top: 0; opacity: 0;}
     to {top: 30px; opacity: 1;}
 }
-
 @-webkit-keyframes fadeout {
     from {top: 30px; opacity: 1;} 
     to {top: 0; opacity: 0;}
 }
-
 @keyframes fadeout {
     from {top: 30px; opacity: 1;}
     to {top: 0; opacity: 0;}
@@ -112,8 +105,6 @@ else
     color: #fff;
     
 }
-
-
     </style>
 </head>
 
@@ -122,12 +113,12 @@ else
     <?php
 	if (isset($_SESSION['message'])) {
 		echo "<div id='error_msg' color='red'>".$_SESSION['message']."</div>";
-		unset($_SESSION['message']);
+		//unset($_SESSION['message']);
 	}
 ?>
 </p>
 <div class="signup">
-    <form method="post" action="registration.php" style="textalign:center">
+    <form method="post" style="textalign:center">
     <h2 style="color: #fff;">Sign Up</h2>
     <input type="text" name="username" placeholder="Full name" class="inputtype" required><br><br>
     <input type="text" name="email" placeholder="Email address" class="inputtype"  required><br><br> 
@@ -162,7 +153,7 @@ function myFunction() {
         
         <input type="submit" name="submit" value="Sign up" ><br><br>
         
-        Already have account?<a href="login.php" style="text-decoration: none; font-family: 'Play', sans-serif; color:#9ff;">&nbsp;Log In</a>
+       <!-- Already have account?<a href="login.php" style="text-decoration: none; font-family: 'Play', sans-serif; color:#9ff;">&nbsp;Log In</a> -->
     </form>
     
     </div>
