@@ -2,34 +2,62 @@
 session_start();
 if (isset($_POST['submit']) ){
     
-$conn=mysqli_connect('localhost','root','');
-mysqli_select_db($conn,'db1');
+/*$conn=mysqli_connect('localhost','root','');
+mysqli_select_db($conn,'authentication');*/
+$conn = new mysqli('localhost', 'root', '', 'authentication');
+    if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+$_SESSION['message']="";
 $username = $_POST['username'];
 $pass = $_POST['password'];
-//$pass_db='';
-$message='';
-$query="SELECT password FROM users WHERE username='$username' and password='$pass'";
-$pass_db=mysqli_query($conn,$query);
-//$_SESSION['password']=$pass_db;
-if(isset($pass_db) )
-{
-   // if($pass == $pass_db)
-    
-        $_SESSION['message']="Registration success";
-        $_SESSION['username0']=$username;
-		//$_SESSION['password']=$pass_db;
-        header("location: organizer.php"); //replace the file accordingle
-    }
-    else{
-       $_SESSION['message']="Invalid Password";
-	   
-    }
+$pass_db='';
+$query="SELECT password,Type FROM users WHERE username='$username'";
+$result=$conn->query($query);
+$row = $result->fetch_assoc();
+//$pass_db=$row ["password"];
 
-/*else{
+if(isset($row ["password"]))
+{
+    if($pass == $row ["password"])
+    {
+        echo $row ["Type"];
+            $_SESSION['message']="Login success";
+            $_SESSION['username']=$username;
+
+            //redirecting to pages based on type of user
+            if($row ["Type"]=="Sponsor")
+            {
+                header("location: sponsor.php"); //replace the file accordingly
+            }
+            else if($row["Type"]=="Participant")
+            {
+                header("location: participant.php"); //replace the file accordingly
+            }
+            else if($row["Type"]=="Speaker")
+            {
+                header("location: speaker.php"); //replace the file accordingly
+            }
+            else 
+            {
+                header("location: organiser.php"); //replace the file accordingly
+            }
+        
+    }
+    
+    else
+    {
+       $_SESSION['message']="Invalid Password";
+    }
+}
+
+else{
     $_SESSION['message']="Invalid Username";
     
-}*/
+}
 mysqli_close($conn);
+
 }
 ?>
 
@@ -47,12 +75,12 @@ mysqli_close($conn);
 <body>
 
 <div class="signin">
-<form method="post" >
+<form method="post">
 <h3 style="color:#fff;">Log In</h3>
-<p style="font-size:10px;" color='red'>   
+<p style="font-size:10px;font-color:red" color='red'>   
     <?php
 	if (isset($_SESSION['message'])) {
-		echo "<div id='error_msg' color='red'>".$_SESSION['message']."</div>";
+		echo "<div id='error_msg' style='font-size:17px;color:red' >".$_SESSION['message']."</div>";
 		unset($_SESSION['message']);
 	}
     ?>
@@ -61,12 +89,12 @@ mysqli_close($conn);
 <input type="password" name="password" placeholder="Password" required class="inputtype" /> <br /><br />
 <input type="submit" name="submit" value="Log In"/> <br/> <br/>
 
-<!--<div id="container">
-<a href="resetPass.html" style=" margin-right:0px; font-size:13px; font-family:Tahoma, Geneva, sans-serif;">Reset password?</a>
+<div id="container">
+<!--<a href="resetPass.html" style=" margin-right:0px; font-size:13px; font-family:Tahoma, Geneva, sans-serif;">Reset password?</a>  -->
 <a href="forgotPass.html" style=" margin-left:30px; font-size:13px; font-family:Tahoma, Geneva, sans-serif;">Forget password</a>
     </div><br /><br /><br /><br /><br /><br />
-Don't have account?<a href="register.php" style="font-family:'Play', sans-serif;">&nbsp;Sign Up</a>
--->
+Don't have account?<a href="registration.php" style="font-family:'Play', sans-serif;">&nbsp;Sign Up</a>
+
 </form>
 </div>
 
