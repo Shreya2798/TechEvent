@@ -3,7 +3,7 @@ session_start();
 if (isset($_POST['submit']) ){
     
 $conn=mysqli_connect('localhost','root','');
-mysqli_select_db($conn,'db1');
+mysqli_select_db($conn,'authentication');
     
 $username = $_POST['username'];
 $pass = $_POST['pass'];
@@ -13,12 +13,16 @@ $itype = $_POST['itype'];
 $desc = mysqli_real_escape_string($conn,$_POST['desc']);
 $message="";
 $reg="";
+
+
 $s="select * from users where username='$username'";
 $result=mysqli_query($conn,$s);
 $num=mysqli_num_rows($result);
+
 if($num == 1)
 {
     $messsage="username already exists";
+    echo"<script> alert('Username already exists');</script>";
 }
 else
 {
@@ -44,7 +48,7 @@ else
 <!DOCTYPE html>
 <html>
 <head profile="http://www.w3.org/2005/10/profile">
-    
+  
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />     
 <title> Register </title>
 <link rel="icon" href="calender.png" type="image/png" >
@@ -66,23 +70,28 @@ else
     font-size: 17px;
 	margin-right:30px;
 }
+
 #msg.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
+
 @-webkit-keyframes fadein {
     from {top: 0; opacity: 0;} 
     to {top: 30px; opacity: 1;}
 }
+
 @keyframes fadein {
     from {top: 0; opacity: 0;}
     to {top: 30px; opacity: 1;}
 }
+
 @-webkit-keyframes fadeout {
     from {top: 30px; opacity: 1;} 
     to {top: 0; opacity: 0;}
 }
+
 @keyframes fadeout {
     from {top: 30px; opacity: 1;}
     to {top: 0; opacity: 0;}
@@ -105,21 +114,25 @@ else
     color: #fff;
     
 }
+
+
     </style>
 </head>
 
 <body>
- <p>   
-    <?php
-	if (isset($_SESSION['message'])) {
-		echo "<div id='error_msg' color='red'>".$_SESSION['message']."</div>";
-		//unset($_SESSION['message']);
-	}
-?>
-</p>
-<div class="signup">
+ <div class="signup">
     <form method="post" style="textalign:center">
     <h2 style="color: #fff;">Sign Up</h2>
+        
+    <p style="font-size:20px;font-color:red" color='red'>   
+        <?php
+        if (isset($_SESSION['message'])) {
+            echo "<div id='error_msg' style='font-size:17px;color:red' >".$_SESSION['message']."</div>";
+            unset($_SESSION['message']);
+        }
+        ?>
+    </p>
+        
     <input type="text" name="username" placeholder="Full name" class="inputtype" required><br><br>
     <input type="text" name="email" placeholder="Email address" class="inputtype"  required><br><br> 
     <input type="password" name="pass" placeholder="Password" class="inputtype"  required><br><br>    
@@ -153,7 +166,7 @@ function myFunction() {
         
         <input type="submit" name="submit" value="Sign up" ><br><br>
         
-       <!-- Already have account?<a href="login.php" style="text-decoration: none; font-family: 'Play', sans-serif; color:#9ff;">&nbsp;Log In</a> -->
+        Already have account?<a href="login.php" style="text-decoration: none; font-family: 'Play', sans-serif; color:#9ff;">&nbsp;Log In</a>
     </form>
     
     </div>
