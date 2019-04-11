@@ -1,6 +1,6 @@
+<!--Make sure you enter appropriate db name, image path and table name -->
 <?php 
   session_start(); 
-
   if (!isset($_SESSION['username'])) {
   	$_SESSION['msg'] = "You must log in first";
   	header('location: login.php');
@@ -59,12 +59,13 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="CreateEvent/index.php">Create event</a></li> 
+		<li><a href="#">About</a></li>
         <li><a href="#">Settings</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        <li><a href="index.php?logout='1'" ><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
       </ul>
     </div>
   </div>
@@ -90,16 +91,14 @@
             <!-- <p> Upcoming Events!</p> -->    
   
   <?php
-$conn = mysqli_connect("localhost","root","","techevent");
+$conn = mysqli_connect("localhost","root","","db1");
 //if (isset($_POST['login_user'])) {
 //$username = mysqli_real_escape_string($conn, $_POST['username']);
 //$_SESSION['username']=$username;}
-
 /* if($conn-> connect_error){
   die("Connection failed:" . $conn -> connect_error); 
 }
 $sql = "SELECT events.eid,events.ename,events.username FROM events INNER JOIN registration on events.username=registration.username where events.username= '{$_SESSION['username']}' ";
-
 $result = $conn-> query($sql);
 if($result-> num_rows > 0){
   while($row = $result-> fetch_assoc()){
@@ -115,7 +114,6 @@ if($result-> num_rows > 0){
       </div>
       </div>
     </div>';
-
     } 
 }
 */
@@ -136,27 +134,31 @@ if($result-> num_rows > 0){
       <h3>Your Events</h3>
       <p>Here's a list of your events:</p>
     <?php
-   $sql = "SELECT events.eid,events.ename,events.username FROM events INNER JOIN registration on events.username=registration.username where events.username= '{$_SESSION['username']}' ";
-
+   $sql = "SELECT events.eid,events.ename,events.username FROM events INNER JOIN users on events.username=users.username where events.username= '{$_SESSION['username']}'"; // and users.type= '{$_SESSION['type']}' 
 $result = $conn-> query($sql);
+
 if($result-> num_rows > 0){
   while($row = $result-> fetch_assoc()){
+	  //$total = "SELECT sponsoramt FROM events,users WHERE events.username=users.username and users.username= '{$_SESSION['username']}'";
+	  //$result = $conn-> query($total);
+	  //echo $result['total'];
           echo '<div class="container">    
               <div class="row"><div class="col-sm-4"> 
                 <div class="panel panel-primary">
                 <div class="panel-heading">Event <span class="glyphicon glyphicon-ok-circle"></span></div>
-                <div class="panel-body"><img src="images.jpg" class="img-responsive" style="width:100%" alt="Image"></div><p style="margin-left:5px">Event ID :'. $row["eid"] ."</br><p style='margin-left:5px'>Event name: ". $row["ename"].'</br><p style="margin-left:5px">Description:</br></br></br>
+                <div class="panel-body"><img src="images.jpeg" class="img-responsive" style="width:100%" alt="Image"></div><p style="margin-left:5px">Event ID :'. $row["eid"] ."</br><p style='margin-left:5px'>Event name: ". $row["ename"].'</br><p style="margin-left:5px">Description:</br></br></br>
                 <p style="margin-left:5px">Progress:</br>
                 <div class="progress" style="margin-left:5px;margin-right:5px;">
                   <div class="progress-bar" role="progressbar" aria-valuenow="70"
                   aria-valuemin="0" aria-valuemax="100" style="width:70%">
                   <span class="sr-only">70% Complete</span>
                   </div>
-                </div><button onclick="sponsornext.html" value="Sponsor" style="margin-left:5px;margin-bottom:15px;color:white;background-color:gray;">Sponsor</button>
+                </div>
                 <div class="panel-footer">Total Amount:</div>
                 </div>
                </div>';}
     }
+
     ?>
     </div>
     </div>
@@ -167,9 +169,8 @@ if($result-> num_rows > 0){
         <h3>All Events</h3>
         <p>Here's a list of all available events:</p>
         <?php
-    $sql = "SELECT events.eid,events.ename,events.username FROM events INNER JOIN registration on events.username=registration.username";
+    $sql = "SELECT events.eid,events.ename,events.username FROM events INNER JOIN users on events.username=users.username where events.username != '{$_SESSION['username']}' ";
     // where events.username= '{$_SESSION['username']}' ";
-
 $result = $conn-> query($sql);
 if($result-> num_rows > 0){
   while($row = $result-> fetch_assoc()){
@@ -177,14 +178,14 @@ if($result-> num_rows > 0){
               <div class="row"><div class="col-sm-4"> 
                 <div class="panel panel-primary">
                 <div class="panel-heading">Event <span class="glyphicon glyphicon-ok-circle"></span></div>
-                <div class="panel-body"><img src="images.jpg" class="img-responsive" style="width:100%" alt="Image"></div><p style="margin-left:5px">Event ID :'. $row["eid"] ."</br><p style='margin-left:5px'>Event name: ". $row["ename"].'</br><p style="margin-left:5px">Description:</br></br></br>
+                <div class="panel-body"><img src="images.jpeg" class="img-responsive" style="width:100%" alt="Image"></div><p style="margin-left:5px">Event ID :'. $row["eid"] ."</br><p style='margin-left:5px'>Event name: ". $row["ename"].'</br><p style="margin-left:5px">Description:</br></br></br>
                 <p style="margin-left:5px">Progress:</br>
                 <div class="progress" style="margin-left:5px;margin-right:5px;">
                   <div class="progress-bar" role="progressbar" aria-valuenow="70"
                   aria-valuemin="0" aria-valuemax="100" style="width:70%">
                   <span class="sr-only">70% Complete</span>
                   </div>
-                </div><button onclick="sponsornext.html" value="Sponsor" style="margin-left:5px;margin-bottom:15px;color:white;background-color:gray;">Sponsor</button>
+                </div>
                 <div class="panel-footer">Total Amount:</div>
                 </div>
                </div>';}
@@ -196,7 +197,7 @@ if($result-> num_rows > 0){
 
 
     <!-- logged in user information -->
-    	<p> <a href="index.php?logout='1'" class="btn btn-danger">logout</a> </p>
+    	
     <?php endif ?>
  	
 
