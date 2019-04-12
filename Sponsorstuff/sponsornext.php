@@ -112,7 +112,7 @@ if (mysqli_query($conn, $sql)) {
     echo "Error updating record: " . mysqli_error($conn);
 }
 //ADD TO TABLE SPONSOR
-$sql = "INSERT INTO sponsor (username, eid, amt) VALUES ('$uname', '$eid', '$addval')";
+$sql = "INSERT INTO sponsor (username, eid, amt) VALUES ('$uname', '$eid', '$finalval')";
 
 if (mysqli_query($conn,$sql)) {
     echo "New record created successfully";
