@@ -12,6 +12,20 @@
   	header("location:login.php");
   }
 ?>
+
+
+<?php
+//session.start();
+if (isset($_POST['collaborate']) )
+{
+    $conn=mysqli_connect('localhost','root','');
+    mysqli_select_db($conn,'authentication');
+    
+    
+
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,7 +105,7 @@
             <!-- <p> Upcoming Events!</p> -->    
   
   <?php
-$conn = mysqli_connect("localhost","root","","db1");
+$conn = mysqli_connect("localhost","root","","authentication");
 //if (isset($_POST['login_user'])) {
 //$username = mysqli_real_escape_string($conn, $_POST['username']);
 //$_SESSION['username']=$username;}
@@ -134,9 +148,8 @@ if($result-> num_rows > 0){
       <h3>Your Events</h3>
       <p>Here's a list of your events:</p>
     <?php
-   $sql = "SELECT events.eid,events.ename,events.username FROM events INNER JOIN users on events.username=users.username where events.username= '{$_SESSION['username']}'"; // and users.type= '{$_SESSION['type']}' 
+   $sql = "SELECT events.eid,events.ename,events.username,events.descr FROM events INNER JOIN users on events.username=users.username where events.username= '{$_SESSION['username']}'"; // and users.type= '{$_SESSION['type']}' 
 $result = $conn-> query($sql);
-
 if($result-> num_rows > 0){
   while($row = $result-> fetch_assoc()){
 	  //$total = "SELECT sponsoramt FROM events,users WHERE events.username=users.username and users.username= '{$_SESSION['username']}'";
@@ -146,7 +159,7 @@ if($result-> num_rows > 0){
               <div class="row"><div class="col-sm-4"> 
                 <div class="panel panel-primary">
                 <div class="panel-heading">Event <span class="glyphicon glyphicon-ok-circle"></span></div>
-                <div class="panel-body"><img src="images.jpeg" class="img-responsive" style="width:100%" alt="Image"></div><p style="margin-left:5px">Event ID :'. $row["eid"] ."</br><p style='margin-left:5px'>Event name: ". $row["ename"].'</br><p style="margin-left:5px">Description:</br></br></br>
+                <div class="panel-body"><img src="images.jpeg" class="img-responsive" style="width:100%" alt="Image"></div><p style="margin-left:5px">Event ID :'. $row["eid"] ."</br><p style='margin-left:5px'>Event name: ". $row["ename"]."</br><p style='margin-left:5px'>Organiser: ". $row["username"].'</br><p style="margin-left:5px">Description:'. $row["descr"].'</br></br></br>
                 <p style="margin-left:5px">Progress:</br>
                 <div class="progress" style="margin-left:5px;margin-right:5px;">
                   <div class="progress-bar" role="progressbar" aria-valuenow="70"
@@ -158,18 +171,20 @@ if($result-> num_rows > 0){
                 </div>
                </div>';}
     }
-
     ?>
     </div>
+  
     </div>
+    </div>
+     
 
-
-      </div>
+  
       <div id="menu1" class="tab-pane fade">
         <h3>All Events</h3>
         <p>Here's a list of all available events:</p>
         <?php
-    $sql = "SELECT events.eid,events.ename,events.username FROM events INNER JOIN users on events.username=users.username where events.username != '{$_SESSION['username']}' ";
+         // session_start();
+    $sql = "SELECT events.eid,events.ename,events.username,events.descr FROM events INNER JOIN users on events.username=users.username where events.username != '{$_SESSION['username']}' ";
     // where events.username= '{$_SESSION['username']}' ";
 $result = $conn-> query($sql);
 if($result-> num_rows > 0){
@@ -178,7 +193,7 @@ if($result-> num_rows > 0){
               <div class="row"><div class="col-sm-4"> 
                 <div class="panel panel-primary">
                 <div class="panel-heading">Event <span class="glyphicon glyphicon-ok-circle"></span></div>
-                <div class="panel-body"><img src="images.jpeg" class="img-responsive" style="width:100%" alt="Image"></div><p style="margin-left:5px">Event ID :'. $row["eid"] ."</br><p style='margin-left:5px'>Event name: ". $row["ename"].'</br><p style="margin-left:5px">Description:</br></br></br>
+                <div class="panel-body"><img src="images.jpeg" class="img-responsive" style="width:100%" alt="Image"></div><p style="margin-left:5px">Event ID :'. $row["eid"] ."</br><p style='margin-left:5px'>Event name: ". $row["ename"]."</br><p style='margin-left:5px'>Organiser: ". $row["username"].'</br><p style="margin-left:5px">Description : '.$row["descr"].'</br></br></br>
                 <p style="margin-left:5px">Progress:</br>
                 <div class="progress" style="margin-left:5px;margin-right:5px;">
                   <div class="progress-bar" role="progressbar" aria-valuenow="70"
@@ -186,9 +201,12 @@ if($result-> num_rows > 0){
                   <span class="sr-only">70% Complete</span>
                   </div>
                 </div>
+                <a href="request.php?id='.$row["eid"].'"><h4>Join</h4></a>"
                 <div class="panel-footer">Total Amount:</div>
                 </div>
-               </div>';}
+               </div>';
+  
+  }
     }
     ?>
       </div>
