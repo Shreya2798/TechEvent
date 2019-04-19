@@ -173,12 +173,7 @@ if($result-> num_rows > 0){
     }
     ?>
     </div>
-  
-    </div>
-    </div>
-     
-
-  
+    
       <div id="menu1" class="tab-pane fade">
         <h3>All Events</h3>
         <p>Here's a list of all available events:</p>
@@ -210,6 +205,7 @@ if($result-> num_rows > 0){
     }
     ?>
       </div>
+	  
       </div>
     </div>
 
