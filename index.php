@@ -76,7 +76,7 @@ if (isset($_POST['collaborate']) )
         <li><a href="CreateEvent/index.php">Create event</a></li> 
 		<li><a href="#">About</a></li>
         <li><a href="#">Settings</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="sponsorlist.php">Find Sponsors</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="index.php?logout='1'" ><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
