@@ -61,7 +61,7 @@
 ?>
 <form method="post" action="">Enter the amount you wish to contribute(in thousands):
 </br></br><input type="text" name="value"></br></br>
-<input type="submit" onclick="alert('Thanks for your contribution!');"></br></br>
+<input type="submit" name='submit' onclick="alert('Thanks for your contribution!');"></br></br>
 <a href=""></br></br>
 </form></br></br>
 
