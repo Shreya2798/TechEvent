@@ -25,23 +25,24 @@ if(isset($row ["password"]))
         echo $row ["Type"];
             $_SESSION['message']="Login success";
             $_SESSION['username']=$username;
-
+            $_SESSION['login']=true;
+        
             //redirecting to pages based on type of user
             if($row ["Type"]=="Sponsor")
             {
-                header("location: sponsor.php"); //replace the file accordingly
+                header("location: index2.php"); //replace the file accordingly
             }
             else if($row["Type"]=="Participant")
             {
-                header("location: participant.php"); //replace the file accordingly
+                header("location: index2.php"); //replace the file accordingly
             }
             else if($row["Type"]=="Speaker")
             {
-                header("location: speaker.php"); //replace the file accordingly
+                header("location: index2.php"); //replace the file accordingly
             }
             else 
             {
-                header("location: organiser.php"); //replace the file accordingly
+                header("location: index2.php"); //replace the file accordingly
             }
         
     }
@@ -91,8 +92,10 @@ mysqli_close($conn);
 
 <div id="container">
 <!--<a href="resetPass.html" style=" margin-right:0px; font-size:13px; font-family:Tahoma, Geneva, sans-serif;">Reset password?</a>  -->
-<a href="forgotPass.html" style=" margin-left:30px; font-size:13px; font-family:Tahoma, Geneva, sans-serif;">Forget password</a>
-    </div><br /><br /><br /><br /><br /><br />
+<!--<a href="forgotPass.html" style=" margin-left:30px; font-size:13px; font-family:Tahoma, Geneva, sans-serif;">Forget password</a> -->
+    </div>
+    <!--<br /><br /><br /><br />-->
+    <br /><br />
 Don't have account?<a href="registration.php" style="font-family:'Play', sans-serif;">&nbsp;Sign Up</a>
 
 </form>
