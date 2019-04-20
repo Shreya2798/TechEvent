@@ -9,26 +9,24 @@ $username = $_POST['username'];
 $pass = $_POST['pass'];
 $pass2 = $_POST['pass2'];
 $email = $_POST['email'];
+$linkedin = $_POST['LinkedIn'];
 $itype = $_POST['itype'];
 $desc = mysqli_real_escape_string($conn,$_POST['desc']);
 $message="";
 $reg="";
-
-
 $s="select * from users where username='$username'";
 $result=mysqli_query($conn,$s);
 $num=mysqli_num_rows($result);
-
+//$row = mysqli_fetch_assoc($result)
 if($num == 1)
 {
     $messsage="username already exists";
-    echo"<script> alert('Username already exists');</script>";
 }
 else
 {
     if($pass == $pass2){
         
-    $reg="INSERT INTO users(username,password,email,Type,Interest) VALUES ('$username','$pass','$email','$itype','$desc')";
+    $reg="INSERT INTO users(username,password,email,LinkedIn,Type,Interest) VALUES ('$username','$pass','$email','$linkedin','$itype','$desc')";
     mysqli_query($conn,$reg);
     $_SESSION['message']="Registration success";
     $_SESSION['username']=$username;
@@ -48,7 +46,7 @@ else
 <!DOCTYPE html>
 <html>
 <head profile="http://www.w3.org/2005/10/profile">
-  
+    
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />     
 <title> Register </title>
 <link rel="icon" href="calender.png" type="image/png" >
@@ -70,28 +68,23 @@ else
     font-size: 17px;
 	margin-right:30px;
 }
-
 #msg.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
-
 @-webkit-keyframes fadein {
     from {top: 0; opacity: 0;} 
     to {top: 30px; opacity: 1;}
 }
-
 @keyframes fadein {
     from {top: 0; opacity: 0;}
     to {top: 30px; opacity: 1;}
 }
-
 @-webkit-keyframes fadeout {
     from {top: 30px; opacity: 1;} 
     to {top: 0; opacity: 0;}
 }
-
 @keyframes fadeout {
     from {top: 30px; opacity: 1;}
     to {top: 0; opacity: 0;}
@@ -114,27 +107,24 @@ else
     color: #fff;
     
 }
-
-
     </style>
 </head>
 
 <body>
- <div class="signup">
+ <p>   
+    <?php
+	if (isset($_SESSION['message'])) {
+		echo "<div id='error_msg' color='red'>".$_SESSION['message']."</div>";
+		//unset($_SESSION['message']);
+	}
+?>
+</p>
+<div class="signup">
     <form method="post" style="textalign:center">
     <h2 style="color: #fff;">Sign Up</h2>
-        
-    <p style="font-size:20px;font-color:red" color='red'>   
-        <?php
-        if (isset($_SESSION['message'])) {
-            echo "<div id='error_msg' style='font-size:17px;color:red' >".$_SESSION['message']."</div>";
-            unset($_SESSION['message']);
-        }
-        ?>
-    </p>
-        
     <input type="text" name="username" placeholder="Full name" class="inputtype" required><br><br>
     <input type="text" name="email" placeholder="Email address" class="inputtype"  required><br><br> 
+    <input type="text" name="LinkedIn" placeholder="Link to your LinkedIn profile" class="inputtype"  required><br><br>     
     <input type="password" name="pass" placeholder="Password" class="inputtype"  required><br><br>    
     <input type="password" name="pass2" placeholder="Confirm Password" class="inputtype" required><br><br>  
     <div class="inputtype">
@@ -149,7 +139,7 @@ else
     </div> <br/>
     <div class="inputtype" >
     
-    <textarea rows="5" cols="20" name="desc" placeholder="List your interests" style="background:transparent;border: lightgrey,dashed;color: lightgrey; font:inherit;"></textarea>
+    <textarea rows="3" cols="0" name="desc" placeholder="List your interests" style="background:transparent;border: lightgrey,dashed;color: lightgrey; font:inherit;"></textarea>
         </div><br>
         
        <!-- <div id="msg">Congratulations You Sign Up successfully!!</div> -->
@@ -166,7 +156,7 @@ function myFunction() {
         
         <input type="submit" name="submit" value="Sign up" ><br><br>
         
-        Already have account?<a href="login.php" style="text-decoration: none; font-family: 'Play', sans-serif; color:#9ff;">&nbsp;Log In</a>
+       <!-- Already have account?<a href="login.php" style="text-decoration: none; font-family: 'Play', sans-serif; color:#9ff;">&nbsp;Log In</a> -->
     </form>
     
     </div>
