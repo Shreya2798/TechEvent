@@ -114,7 +114,7 @@ $t0=$array[0][type];
 			  	
 			  echo '</br></br>SPEAKERS :';
 			  echo "</br></br></br></br></br></br></br></br>&nbsp;&nbsp;&nbsp;";
-			  if($t0!='Organizer')
+			  if($t0=='Organizer')
 			  {
 				echo "<form action='next.php?var=".$var0."' method='post'><input type='submit' value='Go Live!'/></form>";
 				
