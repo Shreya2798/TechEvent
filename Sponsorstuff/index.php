@@ -173,19 +173,20 @@ $result = $conn-> query($sql);
 if($result-> num_rows > 0){
   while($row = $result-> fetch_assoc()){
           $_SESSION['varname'] = $row["eid"];
+		  		  $v1=$row["eid"];
 		  echo '<div class="container">    
               <div class="row"><div class="col-sm-4"> 
                 <div class="panel panel-primary">
                 <div class="panel-heading">Event <span class="glyphicon glyphicon-ok-circle"></span></div>
-                <div class="panel-body"><img src="images.jpeg" class="img-responsive" style="width:100%" alt="Image"></div><p style="margin-left:5px">Event ID :'. $row["eid"] ."</br><p style='margin-left:5px'>Event name: ". $row["ename"].'</br><p style="margin-left:5px">Description:</br></br></br>
+                <div class="panel-body"><img src="images.jpeg" class="img-responsive" style="width:100%" alt="Image"></div><p style="margin-left:5px">Event ID :'. $row["eid"] ."</br><p style='margin-left:5px'>Event name: ". $row["ename"].'</br><p style="margin-left:5px">Description:'. $row["descr"] .'</br></br></br>
                 <p style="margin-left:5px">Progress:</br>
                 <div class="progress" style="margin-left:5px;margin-right:5px;">
                   <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                  aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                  <span class="sr-only">70% Complete</span>
+                  aria-valuemin="0" aria-valuemax="100" style="width:30%">
+                  <span class="sr-only">30% Complete</span>
                   </div>
                 </div>
-				<a href="sponsornext.php"><button value="Sponsor" style="margin-left:5px;margin-bottom:15px;color:white;background-color:gray;">Sponsor</button></a>
+				<a href="sponsornext.php?var='.$v1.'"><button value="Sponsor" style="margin-left:5px;margin-bottom:15px;color:white;background-color:gray;">Sponsor</button></a>
 				<div class="panel-footer"></div>
                 </div>
                </div>';}
