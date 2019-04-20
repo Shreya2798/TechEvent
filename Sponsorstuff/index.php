@@ -140,10 +140,11 @@ $result = $conn-> query($sql);
 if($result-> num_rows > 0){
   while($row = $result-> fetch_assoc()){
 	  
-	      echo '<div class="container">    
+	  $v0=$row["eid"];    
+	  echo '<div class="container">    
               <div class="row"><div class="col-sm-4"> 
                 <div class="panel panel-primary">
-                <div class="panel-heading">Event <span class="glyphicon glyphicon-ok-circle"></span></div>
+                <div class="panel-heading"><a href="event.php?var='.$v0.'" style="color:black;">Event </a><span class="glyphicon glyphicon-ok-circle"></span></div>
                 <div class="panel-body"><img src="images.jpeg" class="img-responsive" style="width:100%" alt="Image"></div><p style="margin-left:5px">Event ID :'. $row["eid"] ."</br><p style='margin-left:5px'>Event name: ". $row["ename"].'</br><p style="margin-left:5px">Description:</br></br></br>
                 <p style="margin-left:5px">Progress:</br>
                 <div class="progress" style="margin-left:5px;margin-right:5px;">
@@ -177,7 +178,7 @@ if($result-> num_rows > 0){
 		  echo '<div class="container">    
               <div class="row"><div class="col-sm-4"> 
                 <div class="panel panel-primary">
-                <div class="panel-heading">Event <span class="glyphicon glyphicon-ok-circle"></span></div>
+                <div class="panel-heading"><a href="event.php?var='.$v1.'" style="color:black;">Event </a><span class="glyphicon glyphicon-ok-circle"></span></div>
                 <div class="panel-body"><img src="images.jpeg" class="img-responsive" style="width:100%" alt="Image"></div><p style="margin-left:5px">Event ID :'. $row["eid"] ."</br><p style='margin-left:5px'>Event name: ". $row["ename"].'</br><p style="margin-left:5px">Description:'. $row["descr"] .'</br></br></br>
                 <p style="margin-left:5px">Progress:</br>
                 <div class="progress" style="margin-left:5px;margin-right:5px;">
