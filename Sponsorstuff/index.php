@@ -168,7 +168,7 @@ if($result-> num_rows > 0){
       <h3>All Events</h3>
         <p>Here's a list of all available events:</p>
         <?php
-    $sql = "SELECT * FROM events where events.eid not in(select eid from sponsor)";
+    $sql = "SELECT * FROM events where amtcompleted<sponsoramt";
     // where events.username= '{$_SESSION['username']}' ";
 $result = $conn-> query($sql);
 if($result-> num_rows > 0){
