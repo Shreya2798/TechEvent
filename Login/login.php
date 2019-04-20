@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+//if already logged in, redirect to index.php i.e. home page
+if( isset($_SESSION['username']))
+{
+    header("location: index2.php");
+}
 if (isset($_POST['submit']) ){
     
 /*$conn=mysqli_connect('localhost','root','');
