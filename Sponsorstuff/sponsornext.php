@@ -82,7 +82,9 @@ $uname = $_SESSION['username'];
 //echo $_POST['value'];
 //echo "Connected successfully\n";
 //$addval =(int)$_POST["name"];
-$eid = $_SESSION['varname']; //id from previous page
+if(isset($_GET['var'])){
+  $eid = $_GET['var']; //some_value
+} 
 $addval=$_POST['value']; //amount to be added
 $sql = "SELECT amtcompleted FROM events where eid='$eid'";
 $result = $conn-> query($sql);
