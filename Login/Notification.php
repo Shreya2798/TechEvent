@@ -99,8 +99,10 @@
         
             ?>
               
-              <h1 class="jumbotron-heading"><?php echo $row['Sender'] ?></h1>
-              <p class="lead text-muted">Requests to collaborate for event <?php echo $row['ename']." - ". $row['eid'] ?><br/><?php echo $row['sEmail'] ?> <br/> <?php echo $row['date'] ?> </p>
+              <h1 class="jumbotron-heading"><?php echo $row['Sender'] ?> </h1>
+              <p class="lead text-muted">Type: <?php echo $row['sType'] ?> </p> 
+              <p class="lead text-muted">Requests to collaborate for event -   <?php echo $row['ename']." (Event ID: ". $row['eid'].")" ?>
+              <br/><p class="lead text-muted">LinkedIn profile: <span style="color:blue;"> <?php echo $row['sLinkedin'] ?></span> </p> 
               <p>
                   <a href="accept.php?id=<?php echo $row['Sender']?>"  class="btn btn-primary my-2">Accept</a>
                   <a href="reject.php?id=<?php echo $row['Sender']?>" class="btn btn-secondary my-2">Reject</a>
