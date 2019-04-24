@@ -172,7 +172,7 @@ echo "<a href='Notification.php'><p class='notif' style='position:absolute;top:1
 			mysqli_select_db($conn,'authentication');
 			
 			
-		}*/
+		}*/ //speaker stuff
           $curr=$_SESSION['username'];
 		  // session_start();
 		  $sql = "SELECT events.eid,events.ename,events.username,events.descr FROM events where events.CurrSpeakers < events.numspeakers and events.verified=0 and events.eid not in(SELECT eid from speakers where sname='$curr')" ;
