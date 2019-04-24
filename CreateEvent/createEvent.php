@@ -122,11 +122,12 @@
 
  <div class="form-style-10">
 <h1><span>Create Your Event</span></h1>
-<form action="submit.php">
+<form action="submit.php" method="post">
     <div class="section"><span>Basic Details</span></div>
     <div class="inner-wrap" method="post">
         <label>Event Name <input type="text" name="ename" /></label>
         <label>Event Date <input type="text" name="edate" /></label>
+        <label>Event Time <input type="text" name="etime" /></label>
         
         
     </div>
@@ -134,7 +135,7 @@
     <div class="section"><span>Tell us more!</span></div>
     <div class="inner-wrap">
         <label>Sponsor Amount:<input type="text" name="sponsoramt" /></label>
-	    <label>No Of Speakers:<input type="text" name="maxspeakers" /></label>
+	    <label>No Of Speakers:<input type="text" name="numspeakers" /></label>
 	    <label>No Of Participants:<input type="text" name="maxparticipants" /></label>
     </div>
 
