@@ -140,7 +140,7 @@
 					   </div>';
     }
 	}	
-echo "<a href='Notification.php'><p class='notif' style='position:absolute;top:16px;left:385px;font-family:arial;color:#9A9B9F;font-size:12;'> Notifications</p></a>";
+echo "<a href='Notification.php'><p class='notif' style='position:absolute;top:16px;left:385px;font-family:arial;font-size:12;color:#9A9B9F;'> Notifications</p></a>";
 	}
 	else if($row ["Type"]=="Sponsor")
 	{
