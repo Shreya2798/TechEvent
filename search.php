@@ -1,7 +1,7 @@
 <?php
 
 /*
-Include the following in the nav bar in home.php and yourevents.php.
+Include the following in the nav bar in home.php and yourevents.php. The position values might have to be altered based on where the search bar appears when you run it.
 
 <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home</a></li>
