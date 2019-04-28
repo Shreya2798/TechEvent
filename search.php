@@ -33,7 +33,7 @@ if (isset($_GET['logout'])) {
   	unset($_SESSION['username']);
   	header("location:login.php");
   }
-$conn = mysqli_connect("localhost","root","","db1");
+$conn = mysqli_connect("localhost","root","","authentication");
 ?>
 <!DOCTYPE html>
 <html>
