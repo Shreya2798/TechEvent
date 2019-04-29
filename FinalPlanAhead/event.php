@@ -102,7 +102,7 @@ $t0=$array[0]["Type"];
 
 }
 
-$sql = "SELECT username FROM events where eid='$var0'";
+$sql = "SELECT username,verified FROM events where eid='$var0'";
 $result = $conn-> query($sql);
 $array = array();
 if($result-> num_rows > 0){
@@ -112,6 +112,7 @@ if($result-> num_rows > 0){
 }
 
 $t1=$array[0][username];	  
+$t2=$array[0][verified];
 	  
 ?>
 <div style="position: absolute;left: 90px;top: 120px;right: 90px;width: 1200px;height: 600px;background-color:#353942;font-family: Arial;">
@@ -157,7 +158,7 @@ $t1=$array[0][username];
 
           
 			  echo "</br></br></br></br></br></br></br></br>&nbsp;&nbsp;&nbsp;";
-			  if($t0=='Organizer' && $t1==$_SESSION['username'])
+			  if($t0=='Organizer' && $t1==$_SESSION['username'] && $t2==0)
 			  {
 				echo "<form action='golive.php?var=".$var0."' method='post'><input type='submit' value='Go Live!'/></form>";
 				
