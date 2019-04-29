@@ -9,7 +9,7 @@ $i=$_POST['descr'];
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "techevent";
+$dbname = "authentication";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -20,7 +20,7 @@ $sql = "INSERT INTO `events` (`ename`,`edate`,`etime`,`numspeakers`,`maxparticip
 
 if ($conn->query($sql) === TRUE) {
 	echo"<h2>Successfully Created</h2>";
-echo "<script>setTimeout(\"location.href = '../index2.php';\",1500);</script>";
+echo "<script>setTimeout(\"location.href = 'index2.php';\",1500);</script>";
 } else {
 	echo "Error: " . $sql . "</br>" . $conn->error;
 }
