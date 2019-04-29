@@ -101,6 +101,18 @@ if($result-> num_rows > 0){
 $t0=$array[0]["Type"];
 
 }
+
+$sql = "SELECT username FROM events where eid='$var0'";
+$result = $conn-> query($sql);
+$array = array();
+if($result-> num_rows > 0){
+  while($row = $result-> fetch_assoc()){
+	  $array[] = $row;
+}
+}
+
+$t1=$array[0][username];	  
+	  
 ?>
 <div style="position: absolute;left: 90px;top: 120px;right: 90px;width: 1200px;height: 600px;background-color:#353942;font-family: Arial;">
 	<div style="position: absolute;left: 30px;top: 30px;width: 500px;height: 540px;border-radius: 25px;background-image: url('event.jpeg');"></div>
@@ -145,7 +157,7 @@ $t0=$array[0]["Type"];
 
           
 			  echo "</br></br></br></br></br></br></br></br>&nbsp;&nbsp;&nbsp;";
-			  if($t0=='Organizer')
+			  if($t0=='Organizer' && $t1==$_SESSION['username'])
 			  {
 				echo "<form action='golive.php?var=".$var0."' method='post'><input type='submit' value='Go Live!'/></form>";
 				
