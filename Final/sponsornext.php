@@ -88,14 +88,14 @@ if ($conn->connect_error) {
 }
 echo "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>";
 $uname = $_SESSION['username'];
-//UPDATE RECORD
+
 //echo $_POST['value'];
 //echo "Connected successfully\n";
 //$addval =(int)$_POST["name"];
 if(isset($_GET['var'])){
   $eid = $_GET['var']; //some_value
 } 
-$addval=$_POST['value']; //amount to be added
+
 $sql = "SELECT amtcompleted FROM events where eid='$eid'";
 $result = $conn-> query($sql);
 // set array
@@ -107,11 +107,17 @@ if($result-> num_rows > 0){
 	  //print_r($array[0]['sponsoramt']);
 	 // echo $row['sponsoramt']; 
 }}
-echo "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>";
-// debug:
-//print_r($array); 
-//echo (string)	$array[0]['amtcompleted'];
-$old = (int)$array[0]['amtcompleted'];
+//ADD TO TABLE SPONSOR
+if(isset($_POST['submit']) ){
+$addval=$_POST['value']; //amount to be added
+$sql = "SELECT amtcompleted FROM events where eid='$eid'";
+$result = $conn-> query($sql);
+// set array
+$array = array();
+if($result-> num_rows > 0){
+  while($row = $result-> fetch_assoc()){
+	  $array[] = $row;
+}}
 $finalval = $addval+(int)$array[0]['amtcompleted'];
 //echo $finalval;
 //$update0 = $finalval - (int)$array[0]['amtcompleted'];
@@ -119,36 +125,17 @@ $sql = "UPDATE events SET amtcompleted='$finalval' WHERE eid='$eid'";
     // where events.username= '{$_SESSION['username']}' ";
 //$result = $conn-> query($sql);
 if (mysqli_query($conn, $sql)) {
-    echo "Record updated successfully";
+    echo "";
 } else {
     echo "Error updating record: " . mysqli_error($conn);
 }
-$sql = "SELECT amtcompleted FROM events where eid='$eid'";
-$result = $conn-> query($sql);
-// set array
-$array = array();
-// look through query/*
-if($result-> num_rows > 0){
-  while($row = $result-> fetch_assoc()){
-	  $array[] = $row;
-	  //print_r($array[0]['sponsoramt']);
-	 // echo $row['sponsoramt']; 
-}}
-echo "NEW VALUE=".$update0." ";
-//ADD TO TABLE SPONSOR
-$sql = "INSERT INTO sponsor (username, eid, amt) VALUES ('$uname', '$eid', '$update0')";
+$sql = "INSERT INTO sponsor (username, eid, amt) VALUES ('$uname', '$eid', '$addval')";
 if (mysqli_query($conn,$sql)) {
-    echo "New record created successfully";
+    echo "";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
-$sql = "UPDATE sponsor SET amt='$addval' WHERE eid='$eid' and username='{$_SESSION['username']}'";
-if (mysqli_query($conn,$sql)) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
 }
-
 
 $conn->close();
 ?>
