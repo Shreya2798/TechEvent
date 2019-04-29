@@ -168,7 +168,7 @@ if($result-> num_rows > 0){
 	else if($_SESSION['Type']=="Sponsor")
 	{
 		
-		$sql = "SELECT * FROM events where amtcompleted<sponsoramt and verified=0";
+		$sql = "SELECT * FROM events where amtcompleted<sponsoramt and verified=0 and eid not in (SELECT eid from sponsor where username='{$_SESSION['username']}')";
 		// where events.username= '{$_SESSION['username']}' ";
 		$result = $conn-> query($sql);
 		if($result-> num_rows > 0){
