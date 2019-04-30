@@ -96,17 +96,6 @@ if(isset($_GET['var'])){
   $eid = $_GET['var']; //some_value
 } 
 
-$sql = "SELECT amtcompleted FROM events where eid='$eid'";
-$result = $conn-> query($sql);
-// set array
-$array = array();
-// look through query/*
-if($result-> num_rows > 0){
-  while($row = $result-> fetch_assoc()){
-	  $array[] = $row;
-	  //print_r($array[0]['sponsoramt']);
-	 // echo $row['sponsoramt']; 
-}}
 //ADD TO TABLE SPONSOR
 if(isset($_POST['submit']) ){
 $addval=$_POST['value']; //amount to be added
